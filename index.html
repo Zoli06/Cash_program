@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/4c81ee38bb.js" crossorigin="anonymous"></script>    <title>Számlázó</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Glegoo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <p class="inspired-by">Design inspired by<br/><span class="billingo"><img class="billingo-logo" alt="Billingo_logo" src="https://www.billingo.hu/images/billingo_logo.svg"></span></p>
+    <div class="page-container">
+      <h1 class="title">Új szerződés kiállítása</h1>
+      <!--Personal data-->
+      <div class="client">
+        <div class="client-title-container">
+          <h2 class="client-title">Kinek szól a szerződés?</h2>
+        </div>
+        <div class="client-name">
+          <p class="client-name-p">Bérlő neve: </p>
+          <input type="text" class="client-name-input"  list="client-name-select"/>
+          <datalist class="client-name-select" id="client-name-select"></datalist> <!--Options added by JavaScript/VBA-->
+        </div>
+        <div class="guarantor-name">
+          <p class="guarantor-name-p">Meghatalmazott/kezes:</p>
+          <input type="text" class="guarantor-name-input"/>
+        </div>
+        <div class="client-addres">
+          <p class="client-addres-p">Címe (bérlő):</p>
+          <input type="text" class="client-addres-input"/>
+        </div>
+        <div class="guarantor-addres">
+          <p class="guarantor-addres-p">Címe (meghatalmazott/kezes):</p>
+          <input type="text" class="guarantor-addres-input"/>
+        </div>
+        <div class="ID-number">
+          <p class="ID-number-p">Sz. ig. szám:</p>
+          <input type="text" class="ID-number-input"/>
+        </div>
+        <div class="phone">
+          <p class="phone-p">Tel.:</p>
+          <input type="text" class="phone-input"/>
+        </div>
+        <div class="operation-addres">
+          <p class="operation-addres-p">Gép üzemeltetési helye:</p>
+          <input type="text" class="operation-addres-input"/>
+        </div>
+        <div class="lastelement date-of-birth">
+          <p class="date-of-birth-p">A. n. szül. dátum:</p>
+          <input type="text" class="date-of-birtht-input"/>
+        </div>
+      </div>
+      <!--Rent data-->
+      <div class="rent">
+        <div class="rent-title-container">
+          <h2 class="rent-title">A szerződés adatai</h2>
+        </div>
+        <div class="rent-start">
+          <p class="rent-time rent-start-p"><b>Bérleti idő kezdete:</b></p>
+          <div class="time-grid-container">
+            <div class="rent-time-container">
+              <p class="rent-time rent-start-year-p">Év:</p>
+              <input type="number" class="rent-time rent-start-year-input"/>
+            </div>
+            <div class="rent-time-container">
+              <p class="rent-time rent-start-month-p">Hó:</p>
+              <input type="number" class="rent-time rent-start-month-input"/>
+            </div>
+            <div class="rent-time-container">
+              <p class="rent-time rent-start-day-p">Nap:</p>
+              <input type="number" class="rent-time rent-start-day-input"/>
+            </div>
+            <div class="rent-time-container">
+              <p class="rent-time rent-start-hour-p">Óra:</p>
+              <input type="number" class="rent-time rent-start-hour-input"/>
+            </div>
+            <div class="rent-time-container">
+              <p class="rent-time rent-start-minute-p">Perc:</p> <!--This data will be added to hours input at the print like this 14³⁰ or this 14:30 (I don't know wich)-->
+              <input type="number" class="rent-time rent-start-minute-input"/>
+            </div>
+          </div>
+        </div>
+        <div class="rent-end">
+          <p class="rent-time rent-end-p"><b>Bérleti idő vége:</b></p>
+          <div class="time-grid-container">
+            <div class="rent-time-container">
+              <p class="rent-time rent-end-year-p">Év:</p>
+              <input type="number" class="rent-time rent-end-year-input"/>
+            </div>
+            <div class="rent-time-container">
+              <p class="rent-time rent-end-month-p">Hó:</p>
+              <input type="number" class="rent-time rent-end-month-input"/>
+            </div>
+            <div class="rent-time-container">
+              <p class="rent-time rent-end-day-p">Nap:</p>
+              <input type="number" class="rent-time rent-end-day-input"/>
+            </div>
+            <div class="rent-time-container">
+              <p class="rent-time rent-end-hour-p">Óra:</p>
+              <input type="number" class="rent-time rent-end-hour-input"/>
+            </div>
+            <div class="lastelement rent-time-container">
+              <p class="rent-time rent-end-minute-p">Perc:</p> <!--This data will be added to hours input at the print like this 14³⁰ or this 14:30 (I don't know wich)-->
+              <input type="number" class="rent-time rent-end-minute-input"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="objects">
+        <div class="machine-or-tool">
+          <div class="machine-or-tool-checkbox-container custom-control custom-switch">
+            <input type="checkbox" class="machine-or-tool-checkbox machine-checkbox custom-control-input" id="machine-checkbox" onclick="isRentingMachineOrTool()" name="machine-checkbox" checked="checked" />
+            <label for="machine-checkbox" class="custom-control-label"><b>Gépbérlés</b></label>
+          </div>
+          <div class="machine-or-tool-checkbox-container custom-control custom-switch">
+            <input type="checkbox" class="machine-or-tool-checkbox tool-checkbox custom-control-input" id="tool-checkbox" onclick="isRentingMachineOrTool()" name="tool-checkbox" />
+            <label for="tool-checkbox" class="custom-control-label"><b>Szerszám, kopóeszközök</b></label>
+          </div>
+        </div>
+        <div class="machine">
+          <div class="machine-renting-h2">
+            <h2 class="machine-renting-h2">Gépbérlés</h2>
+          </div>
+          <div class="number-of-renting-objects">
+            <h4 class="number-of-renting-objects-h4">Bérelt gépek száma: </h4>
+            <select class="number-of-renting-objects-select" id="number-of-renting-objects-select" onchange="changeNumberOfMachines()">
+              <option id="1-renting-object">1</option>
+              <option id="2-renting-object">2</option>
+              <option id="3-renting-object">3</option>
+            </select>
+          </div>
+          <div class="rental-object rental-object-1">
+            <h5 class="machine-number machine-number-1">Első gép adatai</h5>
+            <div class="machine-type machine-type-1">
+              <p class="machine-type-p machine-type-p-1">Gép neve: </p>
+              <input type="text" class="machine-type-input machine-type-input-1" list="machine-type-select-1" />
+              <datalist class="machine-type-select machine-type-select-1" id="machine-type-select-1"></datalist> <!--Options added by JavaScript/VBA-->
+            </div>
+            <div class="machine-piece machine-piece-1">
+              <p class="machine-piece-p machine-piece-p-3">Darabszám: </p>
+              <input type="number" class="machine-piece-input machine-piece-input-1"/>
+            </div>
+            <div class="object-value object-value-1">
+              <p class="object-value-p object-value-1">Bérleti tárgy nettó értéke (Ft): </p>
+              <input type="number" class="object-value-input object-value-input-1"/>
+            </div>
+            <div class="machine-fee-per-day machine-fee-per-day-1">
+              <p class="machine-fee-per-day-p machine-fee-per-day-p-1">Napi díj (Ft): </p>
+              <input type="number" class="machine-fee-per-day-input machine-fee-per-day-input-1"/>
+            </div> 
+            <div class="machine-rent-time machine-rent-time-1">
+              <p class="machine-rent-time-p machine-rent-time-p-1">Bérlés ennyi napra: </p>
+              <input type="number" class="machine-rent-time-input machine-rent-time-1"/>
+            </div>
+            <div class="machine-discount machine-discount-1 lastelement">
+              <p class="machine-discount-p machine-discount-p-1">Kedvezmény: </p>
+              <div class="machine-discount-input-container lastelement">
+                <div class="lastelement"><input type="number" class="machine-discount-value-input machine-discount-value-input-1"/></div>
+                <div class="lastelement"><select class="machine-discount-unit-select machine-discount-unit-select-1" id="machine-discount-unit-select-1">
+                  <option>Százalék</option>
+                  <option>Nap</option>
+                  <option>Forint</option>
+                </select></div>
+              </div>
+            </div>
+          </div>
+          <div class="rental-object rental-object-2 firstelement">
+            <h5 class="machine-number machine-number-2">Második gép adatai</h5>
+            <div class="machine-type machine-type-2">
+              <p class="machine-type-p machine-type-p-2">Gép neve: </p>
+              <input type="text" class="machine-type-input machine-type-input-2" list="machine-type-select-2"/>
+              <datalist class="machine-type-select machine-type-select-2" id="machine-type-select-2"></datalist> <!--Options added by JavaScript/VBA-->
+            </div>
+            <div class="machine-piece machine-piece-2">
+              <p class="machine-piece-p machine-piece-p-3">Darabszám: </p>
+              <input type="number" class="machine-piece-input machine-piece-input-2"/>
+            </div>
+            <div class="object-value object-value-2">
+              <p class="object-value-p object-value-2">Bérleti tárgy nettó értéke (Ft): </p>
+              <input type="number" class="object-value-input object-value-input-2"/>
+            </div>
+            <div class="machine-fee-per-day machine-fee-per-day-2">
+              <p class="machine-fee-per-day-p machine-fee-per-day-p-2">Napi díj (Ft): </p>
+              <input type="number" class="machine-fee-per-day-input machine-fee-per-day-input-2"/>
+            </div> 
+            <div class="machine-rent-time machine-rent-time-2">
+              <p class="machine-rent-time-p machine-rent-time-p-2">Bérlés ennyi napra: </p>
+              <input type="number" class="machine-rent-time-input machine-rent-time-2"/>
+            </div>
+            <div class="machine-discount machine-discount-2 lastelement">
+              <p class="machine-discount-p machine-discount-p-2">Kedvezmény: </p>
+              <div class="machine-discount-input-container lastelement">
+                <div class="lastelement"><input type="number" class="machine-discount-value-input machine-discount-value-input-2"/></div>
+                <div class="lastelement"><select class="machine-discount-unit-select machine-discount-unit-select-2" id="machine-discount-unit-select-2">
+                  <option>Százalék</option>
+                  <option>Nap</option>
+                  <option>Forint</option>
+                </select></div>
+              </div>
+            </div>
+          </div>
+          <div class="rental-object rental-object-3 firstelement">
+            <h5 class="machine-number machine-number-3">Harmadik gép adatai</h5>
+            <div class="machine-type machine-type-3">
+              <p class="machine-type-p machine-type-p-3">Gép neve: </p>
+              <input type="text" class="machine-type-input machine-type-input-3" list="machine-type-select-3"/>
+              <datalist class="machine-type-select machine-type-select-3" id="machine-type-select-3"></datalist> <!--Options added by JavaScript/VBA-->
+            </div>
+            <div class="machine-piece machine-piece-3">
+              <p class="machine-piece-p machine-piece-p-3">Darabszám: </p>
+              <input type="number" class="machine-piece-input machine-piece-input-3"/>
+            </div>
+            <div class="object-value object-value-3">
+              <p class="object-value-p object-value-3">Bérleti tárgy nettó értéke (Ft): </p>
+              <input type="number" class="object-value-input object-value-input-3"/>
+            </div>
+            <div class="machine-fee-per-day machine-fee-per-day-3">
+              <p class="machine-fee-per-day-p machine-fee-per-day-p-3">Napi díj (Ft): </p>
+              <input type="number" class="machine-fee-per-day-input machine-fee-per-day-input-3"/>
+            </div>
+            <div class="machine-rent-time machine-rent-time-3">
+              <p class="machine-rent-time-p machine-rent-time-p-3">Bérlés ennyi napra: </p>
+              <input type="number" class="machine-rent-time-input machine-rent-time-3"/>
+            </div>
+            <div class="machine-discount machine-discount-3 lastelement">
+              <p class="machine-discount-p machine-discount-p-3">Kedvezmény: </p>
+              <div class="machine-discount-input-container lastelement">
+                <div class="lastelement"><input type="number" class="machine-discount-value-input machine-discount-value-input-3"/></div>
+                <div class="lastelement"><select class="machine-discount-unit-select machine-discount-unit-select-3" id="machine-discount-unit-select-3">
+                  <option>Százalék</option>
+                  <option>Nap</option>
+                  <option>Forint</option>
+                </select></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tool">
+          <h2 class="tool-title">Szerszám, kopóeszköz adatai</h2>
+          <div class="tool-type">
+            <p class="machine-type-p">Szerszám/kopóeszköz neve: </p>
+            <input type="text" class="machine-type-input" listlist="machine-type-select-3"/>
+            <datalist class="machine-type-select" id="machine-type-select-3"></datalist> <!--Options added by JavaScript/VBA-->
+          </div>
+          <div class="tool-piece">
+            <p class="tool-piece-p">Darab:</p>
+            <input type="number" class="tool-piece-input"/>
+          </div>
+          <div class="tool-wear-per-mm">  <!--HUNGARIAN: kopás/mm-->
+            <p class="tool-wear-per-mm-p">Darab:</p>
+            <input type="number" class="tool-wear-per-mm-input"/>
+          </div>
+          <div class="tool-fee-per-day">
+            <p class="tool-fee-per-day-p">Napi díj (Ft): </p>
+            <input type="number" class="tool-fee-per-day-input"/>
+          </div> 
+          <div class="tool-rent-time lastelement">
+            <p class="tool-rent-time-p">Bérlés ennyi napra: </p>
+            <input type="number" class="tool-rent-time-input"/>
+          </div>
+        </div>
+      </div>
+      <div class="summary">
+        <h2 class="summary-title">Összegzés</h2>
+        <div class="summary-fee"> <!--HUNGARIAN: díj-->
+          <p class="summary-fee-p">Díj a lejárat idejéig (Ft): </p>
+          <input type="number" class="summary-fee-input-readonly" readonly="readonly"/>
+        </div>
+        <!--<div class="summary-paid-fee">-->
+          <!--I need to ask my dad about when this data field will completed.-->
+        <!--</div>-->
+        <div class="summary-deposit lastelement"> <!--HUNGARIAN: letét-->
+          <p class="summary-deposit-p">Letét (Ft): </p>
+          <input type="number" class="summary-deposit-input"/>
+        </div>
+      </div>
+      <div class="footer">
+        <button class="reset" onclick="resetPage()"><i class="buttton-icon icon fas fa-times"></i>Mégse</button>
+        <button class="print"><i class="icon fas fa-print"></i>Nyomtatás</button>
+      </div>
+    </div>
+  </body>
+</html>
