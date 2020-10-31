@@ -1,0 +1,365 @@
+:root {
+  --bigmachines-bordercolor: lightgrey;
+  --bigmachines-bgcolor: white;
+  --site-bgcolor: whitesmoke;
+  --input-bordercolor: #ccc;
+  --input-bgcolor: #f9f9f9;
+  --input-shadowcolor: #ececec;
+  --html-bgcolor: whitesmoke;
+  --reset-bgcolor: #626265;
+  --print-bgcolor: #7fc745;
+  --print-hover-bgcolor: #75bb3d;
+  --reset-bordercolor: #cacacd;
+  --reset-hover-bordercolor: white;
+  --footer-border-top: #cfcfcf;
+}
+
+* {
+  outline: none !important;
+}
+
+body {
+  background-color: var(--html-bgcolor);
+}
+
+.page-container {
+  display: grid;
+  grid-template-columns: repeat(2, 45%);
+  grid-template-rows: repeat(4, auto);
+  grid-template-areas:
+    "title title"
+    "client rent"
+    "machines machines"
+    "summary summary";
+  justify-content: space-evenly;
+}
+
+.title {
+  grid-area: title;
+}
+
+.client {
+  grid-area: client;
+}
+
+.rent {
+  grid-area: rent;
+}
+
+.machines {
+  grid-area: machines;
+}
+
+.summary {
+  grid-area: summary;
+}
+
+.client,
+.rent,
+.machine-or-tool,
+.machine,
+.tool,
+.summary,
+.admin-list-clients {
+  border: 1px solid var(--bigmachines-bordercolor);
+  border-radius: 12px;
+  background-color: var(--bigmachines-bgcolor);
+  padding-left: 4vw;
+  padding-right: 4vw;
+}
+
+h1,
+h2,
+h4,
+h5,
+.number-of-renting-machines {
+  margin: 0px;
+  text-align: center;
+  line-height: 5rem;
+}
+
+.number-of-renting-machines-h4 {
+  display: inline;
+}
+
+.client div:not(.lastelement)::after,
+.rent div:not(.rent-time-container):not(.time-grid-container)::after,
+.machine div:not(.lastelement):not(.rental-machine)::after,
+h5::after,
+.firstelement::before,
+.tool div:not(.lastelement)::after,
+.tool-title::after,
+.summary div:not(.lastelement)::after,
+.summary-title::after,
+.admin-list-clients div:not(.lastelement)::after {
+  display: block;
+  background-color: var(--bigmachines-bordercolor);
+  content: "";
+  height: 1px;
+  margin-left: -4vw;
+  margin-right: -4vw;
+}
+
+.machine-fee::after,
+.machine-rent-time::after,
+.tool-fee::after,
+.tool-rent-time {
+  width: 223.5%;
+}
+
+p {
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  box-shadow: inset 0px 2px 2px var(--input-shadowcolor);
+  width: 100%;
+  height: 5.5vh;
+  border-radius: 5px;
+  border: 2px solid var(--input-bordercolor);
+  background-color: var(--input-bgcolor);
+  margin-bottom: 16px;
+}
+
+.number-of-renting-machines-select {
+  width: 5vw;
+}
+
+.time-grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  justify-content: space-between;
+  gap: 5%;
+}
+
+.rent-time-container {
+  width: auto;
+}
+
+.rent input {
+  width: 100%;
+}
+
+.machine-or-tool {
+  text-align: left;
+  padding-left: 38.5%;
+}
+
+.number-of-renting-machines-h2,
+.number-of-renting-machines-select {
+  display: inline;
+}
+
+.machines {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: 100%;
+  grid-template-areas:
+    "machine-or-tool"
+    "machine"
+    "tool";
+  justify-content: space-evenly;
+}
+
+.machine-or-tool {
+  grid-area: machine-or-tool;
+}
+
+.machine {
+  grid-area: machine;
+}
+
+.tool {
+  grid-area: tool;
+}
+
+#iframeContainer {
+  overflow: hidden;
+  /* 16:9 aspect ratio */
+  padding-top: 56.25%;
+  position: relative;
+  margin-bottom: 12vh;
+}
+
+#iframeContainer iframe {
+  border: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+h4 {
+  font-weight: 500;
+}
+
+.machine-discount-input-container,
+.machine-fee,
+.machine-rent-time,
+.tool-fee,
+.tool-rent-time {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  justify-content: space-between;
+  gap: 2%;
+}
+
+.machine-rent-time,
+.machine-accessories-container,
+.machine-discount,
+.tool-rent-time {
+  margin-top: 5px;
+}
+
+.machine,
+.tool,
+.machine-or-tool,
+.summary {
+  margin-top: 3%;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 12vh;
+  background-color: var(--reset-bgcolor);
+  text-align: center;
+  z-index: 1;
+  border-top: 3px solid var(--footer-border-top);
+  text-align: center;
+}
+
+.footer button, .admin-new-client {
+  text-transform: uppercase;
+  border-radius: 5px;
+  margin-top: 3vh;
+  height: 50%;
+  width: 15%;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.reset {
+  border: 2px solid var(--reset-bordercolor);
+  background-color: var(--reset-bgcolor);
+  margin-right: 1vw;
+}
+
+.reset:hover {
+  border-color: var(--reset-hover-bordercolor);
+}
+
+.print, .admin-new-client {
+  border: none;
+  background-color: var(--print-bgcolor);
+  margin-left: 1vw;
+}
+
+.print:hover, .admin-new-client:hover {
+  background-color: var(--print-hover-bgcolor);
+}
+
+.icon {
+  height: 1rem;
+  position: relative;
+  float: left;
+  left: 1%;
+  margin-top: 0.6vh;
+}
+
+.inspired-by {
+  position: absolute;
+  right: 1vw;
+  top: 1vw;
+  line-height: 1.25rem;
+  font-size: 0.75rem;
+}
+
+.billingo-logo {
+  width: 6.1rem;
+}
+
+.theme-switcher {
+  width: 2rem;
+}
+
+.theme-switcher-p {
+  margin-left: 1vw;
+  margin-top: 1vw;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 400;
+  font-family: "Glegoo", serif;
+}
+
+p {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.preview-title {
+  margin-top: 3%;
+  line-height: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+input:hover,
+textarea:hover {
+  cursor: text;
+}
+
+button:hover,
+.custom-control-label:hover,
+.theme-switcher:hover,
+.ui-corner-all:hover,
+.operation-icon:hover {
+  cursor: pointer;
+}
+
+.month-picker {
+  background-color: lightyellow;
+  filter: invert(100%);
+}
+
+.table-title-clients:not(.last) {
+  padding-right: 4vw;
+}
+
+.operation-icon {
+  filter: invert(100%);
+  height: 2rem;
+}
+
+.operation-icon.first {
+  margin-right: 25%;
+}
+
+.admin-list-clients {
+  padding-bottom: 16px;
+  margin-bottom: 12vh;
+}
+
+.admin-new-client {
+  position: absolute;
+  height: 60px;
+  right: 20px;
+  margin-top: 12px;
+}
+
+.admin-list-clients {
+  min-width: 1348px;
+}
