@@ -15,6 +15,7 @@ var client_name_input,
   machine_fee_per_day_inputs,
   machine_fee_per_3h_inputs,
   machine_rent_time_day_inputs,
+  machine_rent_time_3h_inputs,
   machine_discount_value_inputs,
   machine_discount_day_selects,
   machine_discount_value_inputs,
@@ -22,6 +23,7 @@ var client_name_input,
   tool_piece_input,
   tool_wear_per_mm_input,
   tool_fee_per_day_input,
+  tool_fee_per_3h_input,
   tool_rent_time_input,
   tool_rent_time_3h_input,
   machine_checkbox,
@@ -64,7 +66,23 @@ var client_name_input,
   phone_input_add,
   operation_addres_input_add,
   mother_name_input_add,
-  date_of_birtht_input_add;
+  date_of_birtht_input_add,
+  machine_type_input_edit,
+  machine_value_input_edit,
+  machine_fee_per_day_input_edit,
+  machine_fee_per_3h_input_edit,
+  machine_type_input_add,
+  machine_value_input_add,
+  machine_fee_per_day_input_add,
+  machine_fee_per_3h_input_add,
+  tool_type_input_edit,
+  tool_wear_per_mm_input_edit,
+  tool_fee_per_day_input_edit,
+  tool_fee_per_3h_input_edit,
+  tool_type_input_add,
+  tool_wear_per_mm_input_add,
+  tool_fee_per_day_input_add,
+  tool_fee_per_3h_input_add;
 
 $(document).ready(function () {
   client_name_input = document.getElementById("client-name-input");
@@ -199,6 +217,23 @@ $(document).ready(function () {
   mother_name_input_add = document.getElementById("mother-name-input-add");
   date_of_birtht_input_add = document.getElementById("date-of-birtht-input-add");
 
+  machine_type_input_edit = document.getElementById("machine-type-input-edit");
+  machine_value_input_edit = document.getElementById("machine-value-input-edit");
+  machine_fee_per_day_input_edit = document.getElementById("machine-fee-per-day-input-edit");
+  machine_fee_per_3h_input_edit = document.getElementById("machine-fee-per-3h-input-edit");
+  machine_type_input_add = document.getElementById("machine-type-input-add");
+  machine_value_input_add = document.getElementById("machine-value-input-add");
+  machine_fee_per_day_input_add = document.getElementById("machine-fee-per-day-input-add");
+  machine_fee_per_3h_input_add = document.getElementById("machine-fee-per-3h-input-add");
+  tool_type_input_edit = document.getElementById("tool-type-input-edit");
+  tool_wear_per_mm_input_edit = document.getElementById("tool-wear-per-mm-input-edit");
+  tool_fee_per_day_input_edit = document.getElementById("tool-fee-per-day-input-edit");
+  tool_fee_per_3h_input_edit = document.getElementById("tool-fee-per-3h-input-edit");
+  tool_type_input_add = document.getElementById("tool-type-input-add");
+  tool_wear_per_mm_input_add = document.getElementById("tool-wear-per-mm-input-add");
+  tool_fee_per_day_input_add = document.getElementById("tool-fee-per-day-input-add");
+  tool_fee_per_3h_input_add = document.getElementById("tool-fee-per-3h-input-add");
+
   if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
     darkTheme = false;
     //function override this to true
@@ -211,8 +246,12 @@ $(document).ready(function () {
 
   $(".admin-edit-clients").hide();
   $(".admin-add-clients").hide();
+  $(".admin-edit-machines").hide();
+  $(".admin-add-machines").hide();
+  $(".admin-edit-tools").hide();
+  $(".admin-add-tools").hide();
 
-  admin = true;
+  admin = false;
   showAdmin();
 });
 
@@ -486,7 +525,7 @@ var docDefinition = {
           text: "",
         }, //Hour. Text added by javascript
         {
-          text: " óra\n\n",
+          text: /*" óra*/"\n\n",
         },
         {
           text: "Bérleti idő vége: ",
@@ -513,7 +552,7 @@ var docDefinition = {
           text: "",
         }, //Hour. Text added by javascript
         {
-          text: " óra\n\n",
+          text: /*" óra*/"\n\n",
         },
         {
           text: "Hosszabítás: ",
@@ -540,13 +579,14 @@ var docDefinition = {
           text: ".....",
         }, //Hour
         {
-          text: " óra\n\n",
-        },
+          text: " óra ",
+        }
       ],
     },
     {
       style: "tableExample",
       table: {
+        "dontBreakRows": false,
         heights: ["auto", 25, 25, 25, "auto", 25],
         widths: ["auto", "auto", "auto", "auto", "*", "*", "*", "*"],
         body: [
@@ -924,14 +964,90 @@ var docDefinition = {
       },
       layout: "noBorders",
     },
-    {
-      text: "",
-    },
+    //ÁSZF
+    [
+      /*{
+        columns: [
+          [
+            {
+              text: "Gladiátor Team Kft.",
+              bold: true,
+              fontSize: 12
+            },
+            {
+              text: "www.gladiator-gepkolcsonzo.hu",
+              bold: true,
+              fontSize: 10,
+              decoration: "underline",
+              alignment: "left"
+            }
+          ],
+          {
+            text: "Bp., 1047 Váci út 59.    Bp., 1182 Üllői út 541.",
+            alignment: "right",
+            fontSize: 10
+          }
+        ],
+      },
+      {
+        text: "\nÁltalános szerződési feltételek",
+        alignment: "center",
+        bold: true,
+        fontSize: 13
+      },
+      {
+        text: [
+          {
+            text: "\na "
+          },
+          {
+            text: "Gladiátor Team Kft.",
+            bold: true
+          },
+          {
+            text: "-től bérbe vett eszközök és azok tartozékaira vonatkozóan:"
+          },
+          {
+            text: "\n\u200B 1. Bérbeadó az eszközt tartozékaival együtt, komplett, üzemképes, a Bérlő jelenlétében kipróbált, sérülésmentes és letisztított állapotban bocsátja a Bérlő rendelkezésére. Az eszköz rendelkezik a szükséges felülvizsgálatokkal, villamos mérésekkel.\n\u200B 2. Bérlő elismeri, hogy az eszközt használó személy rendelkezik az eszköz kezeléséhez szükséges, az idevonatkozó munkavédelmi törvény előírásai szerint érvényes kezelői jogosítvánnyal és szakképesítéssel.\n\u200B 3. Bérlő köteles a bérelt eszközt rendeltetésszerűen, az állagmegóvás követelményeinek eleget téve használni. Az előírások be nem tartása miatt bekövetkezett baleset, anyagi kár esetén a felelősség a Bérlőt terheli.\n\u200B 4. A bérelt eszközök vagyonvédelméről és vagyonbiztosításáról a Bérlő köteles gondoskodni.\n\u200B 5. Bérleti megállapodás a Bérleti Szerződésben foglalt időpontig áll fenn, de azt a Bérlő és a Bérbeadó kölcsönös megállapodással meghosszabbíthatja, új bérleti szerződés megkötése formájában.\n\u200B 6. Bérbeadó jogosult a Bérlőtől az esetleges káresemények fedezetéül letéti díjat kérni.\n\u200B 7. A bérleti idő lejártával a Bérleti Szerződés megszűnik és a Bérlő a bérelt eszközt, azok tartozékait, üzemképes, tiszta állapotban köteles visszaszállítani. Az esetleges meghibásodásokat, sérüléseket az eszköz átadásakor hibafelvételi jegyzőkönyvben rögzítik, amely alapján a Bérbeadónak joga van a Bérlo felé az okozott kárt áthárítani. Amennyiben az okozott kár a letéti díjból nem fedezhető, úgy a Bérlő köteles a fennmaradó kárösszeget megfizetni. \n\u200B 8. A Bérleti Szerződés fennállása alatt a Bérbeadó saját költségén gondoskodik a rendeltetésszerű használat ellenére bekövetkezett hibák javításáról. A javítás idejére a bérleti díjat fizetni nem kell.\n\u200B 9. A bérelt eszköz meghibásodása esetén a Bérbeadó nem vállal felelősséget a Bérlő által elvégzendő munka elkészítéséért, a Bérlő kártérítési igénnyel nem lép fel.\n\u200B 10. A meghibásodás vagy megrongálódás esetén a Bérlő tartozik a bérelt gépet a Bérbeadónak visszaszállítani, vagy a hibát ugyanitt haladéktalanul bejelenteni. Ha a bérelt gép a Bérlőnek felróható okból meghibásodik, megrongálódik (gondatlan kezelés szakszerűtlen munkavégzés, túlterhelés stb.) a Bérlő köteles a javítási költséget, a Bérbeadó egyéb igazolt kárát megtéríteni. A Bérlő a meghibásodott gépet csak a Bérbeadó hozzájárulásával javíthatja vagy javíttathatja.\n\u200B 11. A  Bérbeadó jogosult – a Bérlő háborítása nélkül – a gépe üzemeltetési körülményeit ellenőrizni.\n\u200B 12. A gép használatáért a szerződésben megjelölt díjat számítja fel a Bérbeadó. "
+          },
+          {
+            text: "A számla kiegyenlítése a Gladiátor Team Kft. pénztárába, szerződéskötéskor,  készpénzes fizetés formájában történik.\n\u200B",
+            bold: true
+          },
+          {
+            text: "\u200B 13. A bérleti tárgy három órán belüli késedelmes visszaszolgáltatása esetén (minimum egy napi bérlés után) a napi díj 70%-át, három órán túli késés esetén a napi díjat számítja fel a Bérbeadó.\n\u200B 14. Késedelmes fizetés esetén a Bérbeadó kamatot számít fel. A kamat mértéke a mindenkori jegybanki alapkamat kétszerese. \n\u200B 15. Ha a Bérlő a bérleti idő lejártakor a bérelt eszközt és tartozékait felszólítás ellenére sem szállítja vissza, a Bérbeadó jogosult a bérelt eszközt tartozékaival együtt a Bérlőtől elszállítani. Az emiatt felmerült költségek a Bérlőt terhelik.\n\u200B 16. Ha a bérelt eszköz és tartozékainak visszaadása meghiúsul, elvész, megsemmisül, használhatatlanná válik a Bérlő köteles a bérelt eszköz és tartozékainak szerződésben meghatározott értékét, a szerződés lejártától számítva 10 naptári napon belül, megfizetni. \n\u200B 17. A Bérleti Szerződés fennállása alatt a bérelt eszköz és tartozékai másra nem ruházhatók át, nem idegeníthetők el és nem terhelhetők meg. A bérelt eszközt a Bérlő nem adhatja tovább bérletbe. \n\u200B 18. Amennyiben a Bérlő meghatalmazott által eszközt bérel, úgy a Bérlő (cég) aláírásra, cégüket korlátozás nélküli képviselésre jogosult személye kijelenti, hogy az általa meghatalmazott személy Bérlő számára minden tekintetben kötelező érvényű szerződést köt.\n\u200B 19. Amennyiben a Bérleti szerződés Kezes bevonásával jön létre, úgy Kezes kijelenti, hogy számára jelen szerződési feltételek éppoly kötelező érvényűek mint Bérlőre nézve. \n\u200B 20. Felek a Bérleti Szerződésből származó per esetére kikötik a Budapest Központi Bíróság kizárólagos illetékességét."
+          }
+        ]
+      },
+      {
+        table: {
+          widths: ["*", "*", "*"],
+          body: [
+            [
+              {
+                text: "\n\n\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \nBérlő  (aláírás, szig.szám)\n\n\n\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \nBérbeadó",
+                alignment: "center"
+              },
+              {},
+              {
+                text: "\n\n\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \nBérlő (név, bélyegző)\n\n\n\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \nKezes",
+                alignment: "center"
+              }
+            ]
+          ]
+        },
+        layout: "noBorders"
+      }*/
+    ]
   ],
 
   defaultStyle: {
     fontSize: 10,
   },
+
+  pageMargins: [30, 20, 30, 20],
+
+  dontBreakRows: false
 };
 
 //#region
@@ -1035,8 +1151,6 @@ function newClient() {
     operationAddres: operation_addres_input.value,
     motherName: mother_name_input.value,
     dateOfBirth: date_of_birtht_input.value,
-  }).done(function (data) {
-    return;
   });
 }
 
@@ -1052,8 +1166,6 @@ function updateClient() {
     operationAddres: operation_addres_input.value,
     motherName: mother_name_input.value,
     dateOfBirth: date_of_birtht_input.value,
-  }).done(function (data) {
-    return;
   });
 }
 
@@ -1063,9 +1175,7 @@ function newMachine(number) {
     machine: machine_type_inputs[number - 1].value,
     machineValue: machine_value_inputs[number - 1].value,
     machineFeePerDay: machine_fee_per_day_inputs[number - 1].value,
-    machineFeePer3h: machine_fee_per_3h_inputs[number - 1].value,
-  }).done(function (data) {
-    return;
+    machineFeePer3h: machine_fee_per_3h_inputs[number - 1].value
   });
 }
 
@@ -1076,8 +1186,6 @@ function updateMachine(number) {
     machineValue: machine_value_inputs[number - 1].value,
     machineFeePerDay: machine_fee_per_day_inputs[number - 1].value,
     machineFeePer3h: machine_fee_per_3h_inputs[number - 1].value,
-  }).done(function (data) {
-    return;
   });
 }
 
@@ -1085,8 +1193,6 @@ function newAccessorie(number) {
   $.post("server.js", {
     myMethod: "newAccessorie",
     accessorie: machine_accessories_inputs[number - 1].value,
-  }).done(function (data) {
-    return;
   });
 }
 
@@ -1094,8 +1200,6 @@ function updateAccessorie(number) {
   $.post("server.js", {
     myMethod: "updateAccessorie",
     accessorie: machine_accessories_inputs[number - 1].value,
-  }).done(function (data) {
-    return;
   });
 }
 
@@ -1106,8 +1210,6 @@ function newTool() {
     toolWearPerMm: tool_wear_per_mm_input.value,
     toolFeePerDay: tool_fee_per_day_input.value,
     toolFeePer3h: tool_fee_per_3h_input.value,
-  }).done(function (data) {
-    return;
   });
 }
 
@@ -1118,8 +1220,6 @@ function updateTool() {
     toolWearPerMm: tool_wear_per_mm_input.value,
     toolFeePerDay: tool_fee_per_day_input.value,
     toolFeePer3h: tool_fee_per_3h_input.value,
-  }).done(function (data) {
-    return;
   });
 }
 
@@ -1339,7 +1439,7 @@ function print() {
       }
     }
   }
-
+  docDefinition["content"][12] = "";
   if (client_name_input.value != "") {
     $.post("server.js", {
       myMethod: "changeClient",
@@ -1358,7 +1458,87 @@ function print() {
             "Szeretné kinyomtatni az Általános Szerződési Feltételeket? (Ok=igen, Mégse=nem)"
           )
         ) {
-          docDefinition["content"][12]["text"] = "Ászf";
+          docDefinition["content"][12] = [{
+            columns: [
+              [
+                {
+                  text: "Gladiátor Team Kft.",
+                  bold: true,
+                  fontSize: 12
+                },
+                {
+                  text: "www.gladiator-gepkolcsonzo.hu",
+                  bold: true,
+                  fontSize: 10,
+                  decoration: "underline",
+                  alignment: "left"
+                }
+              ],
+              {
+                text: "Bp., 1047 Váci út 59.    Bp., 1182 Üllői út 541.",
+                alignment: "right",
+                fontSize: 10
+              }
+            ],
+          },
+          {
+            text: "\nÁltalános szerződési feltételek",
+            alignment: "center",
+            bold: true,
+            fontSize: 13
+          },
+          {
+            text: [
+              {
+                text: "\na "
+              },
+              {
+                text: "Gladiátor Team Kft.",
+                bold: true
+              },
+              {
+                text: "-től bérbe vett eszközök és azok tartozékaira vonatkozóan:"
+              },
+              {
+                text: "\n\u200B 1. Bérbeadó az eszközt tartozékaival együtt, komplett, üzemképes, a Bérlő jelenlétében kipróbált, sérülésmentes és letisztított állapotban bocsátja a Bérlő rendelkezésére. Az eszköz rendelkezik a szükséges felülvizsgálatokkal, villamos mérésekkel.\n\u200B 2. Bérlő elismeri, hogy az eszközt használó személy rendelkezik az eszköz kezeléséhez szükséges, az idevonatkozó munkavédelmi törvény előírásai szerint érvényes kezelői jogosítvánnyal és szakképesítéssel.\n\u200B 3. Bérlő köteles a bérelt eszközt rendeltetésszerűen, az állagmegóvás követelményeinek eleget téve használni. Az előírások be nem tartása miatt bekövetkezett baleset, anyagi kár esetén a felelősség a Bérlőt terheli.\n\u200B 4. A bérelt eszközök vagyonvédelméről és vagyonbiztosításáról a Bérlő köteles gondoskodni.\n\u200B 5. Bérleti megállapodás a Bérleti Szerződésben foglalt időpontig áll fenn, de azt a Bérlő és a Bérbeadó kölcsönös megállapodással meghosszabbíthatja, új bérleti szerződés megkötése formájában.\n\u200B 6. Bérbeadó jogosult a Bérlőtől az esetleges káresemények fedezetéül letéti díjat kérni.\n\u200B 7. A bérleti idő lejártával a Bérleti Szerződés megszűnik és a Bérlő a bérelt eszközt, azok tartozékait, üzemképes, tiszta állapotban köteles visszaszállítani. Az esetleges meghibásodásokat, sérüléseket az eszköz átadásakor hibafelvételi jegyzőkönyvben rögzítik, amely alapján a Bérbeadónak joga van a Bérlo felé az okozott kárt áthárítani. Amennyiben az okozott kár a letéti díjból nem fedezhető, úgy a Bérlő köteles a fennmaradó kárösszeget megfizetni. \n\u200B 8. A Bérleti Szerződés fennállása alatt a Bérbeadó saját költségén gondoskodik a rendeltetésszerű használat ellenére bekövetkezett hibák javításáról. A javítás idejére a bérleti díjat fizetni nem kell.\n\u200B 9. A bérelt eszköz meghibásodása esetén a Bérbeadó nem vállal felelősséget a Bérlő által elvégzendő munka elkészítéséért, a Bérlő kártérítési igénnyel nem lép fel.\n\u200B 10. A meghibásodás vagy megrongálódás esetén a Bérlő tartozik a bérelt gépet a Bérbeadónak visszaszállítani, vagy a hibát ugyanitt haladéktalanul bejelenteni. Ha a bérelt gép a Bérlőnek felróható okból meghibásodik, megrongálódik (gondatlan kezelés szakszerűtlen munkavégzés, túlterhelés stb.) a Bérlő köteles a javítási költséget, a Bérbeadó egyéb igazolt kárát megtéríteni. A Bérlő a meghibásodott gépet csak a Bérbeadó hozzájárulásával javíthatja vagy javíttathatja.\n\u200B 11. A  Bérbeadó jogosult – a Bérlő háborítása nélkül – a gépe üzemeltetési körülményeit ellenőrizni.\n\u200B 12. A gép használatáért a szerződésben megjelölt díjat számítja fel a Bérbeadó. "
+              },
+              {
+                text: "A számla kiegyenlítése a Gladiátor Team Kft. pénztárába, szerződéskötéskor,  készpénzes fizetés formájában történik.\n\u200B",
+                bold: true
+              },
+              {
+                text: "\u200B 13. A bérleti tárgy három órán belüli késedelmes visszaszolgáltatása esetén (minimum egy napi bérlés után) a napi díj 70%-át, három órán túli késés esetén a napi díjat számítja fel a Bérbeadó.\n\u200B 14. Késedelmes fizetés esetén a Bérbeadó kamatot számít fel. A kamat mértéke a mindenkori jegybanki alapkamat kétszerese. \n\u200B 15. Ha a Bérlő a bérleti idő lejártakor a bérelt eszközt és tartozékait felszólítás ellenére sem szállítja vissza, a Bérbeadó jogosult a bérelt eszközt tartozékaival együtt a Bérlőtől elszállítani. Az emiatt felmerült költségek a Bérlőt terhelik.\n\u200B 16. Ha a bérelt eszköz és tartozékainak visszaadása meghiúsul, elvész, megsemmisül, használhatatlanná válik a Bérlő köteles a bérelt eszköz és tartozékainak szerződésben meghatározott értékét, a szerződés lejártától számítva 10 naptári napon belül, megfizetni. \n\u200B 17. A Bérleti Szerződés fennállása alatt a bérelt eszköz és tartozékai másra nem ruházhatók át, nem idegeníthetők el és nem terhelhetők meg. A bérelt eszközt a Bérlő nem adhatja tovább bérletbe. \n\u200B 18. Amennyiben a Bérlő meghatalmazott által eszközt bérel, úgy a Bérlő (cég) aláírásra, cégüket korlátozás nélküli képviselésre jogosult személye kijelenti, hogy az általa meghatalmazott személy Bérlő számára minden tekintetben kötelező érvényű szerződést köt.\n\u200B 19. Amennyiben a Bérleti szerződés Kezes bevonásával jön létre, úgy Kezes kijelenti, hogy számára jelen szerződési feltételek éppoly kötelező érvényűek mint Bérlőre nézve. \n\u200B 20. Felek a Bérleti Szerződésből származó per esetére kikötik a Budapest Központi Bíróság kizárólagos illetékességét."
+              }
+            ]
+          },
+          {
+            table: {
+              widths: ["*", "*", "*"],
+              body: [
+                [
+                  {
+                    text: "\n\n\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \nBérlő  (aláírás, szig.szám)\n\n\n\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \nBérbeadó",
+                    alignment: "center"
+                  },
+                  {},
+                  {
+                    text: "\n\n\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \nBérlő (név, bélyegző)\n\n\n\n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \nKezes",
+                    alignment: "center"
+                  }
+                ]
+              ]
+            },
+            layout: "noBorders"
+          }];
+          pdfDocGenerator = pdfMake.createPdf(docDefinition);
+          pdfDocGenerator.getDataUrl((dataUrl) => {
+            const targetElement = document.querySelector("#iframeContainer");
+            const iframe = document.createElement("iframe");
+            iframe.src = dataUrl;
+            targetElement.appendChild(iframe);
+            document.getElementsByTagName("iframe");
+          });
+        } else {
           pdfDocGenerator = pdfMake.createPdf(docDefinition);
           pdfDocGenerator.getDataUrl((dataUrl) => {
             const targetElement = document.querySelector("#iframeContainer");
@@ -1449,9 +1629,12 @@ function refreshPdf() {
     ddRentStartDay = ".....";
   }
   if (rent_start_hour_input.value != "") {
-    ddRentStartHour = rent_start_hour_input.value;
+    ddRentStartHour = rent_start_hour_input.value + " óra";
+    if (rent_start_minute_input.value != "") {
+      ddRentStartHour += " " + rent_start_minute_input.value + " perc";
+    }
   } else {
-    ddRentStartHour = ".....";
+    ddRentStartHour = "..... óra";
   }
   if (rent_end_year_input.value != "") {
     ddRentEndYear = rent_end_year_input.value;
@@ -1469,9 +1652,12 @@ function refreshPdf() {
     ddRentEndDay = ".....";
   }
   if (rent_end_hour_input.value != "") {
-    ddRentEndHour = rent_end_hour_input.value;
+    ddRentEndHour = rent_end_hour_input.value + " óra";
+    if (rent_end_minute_input.value != "") {
+      ddRentEndHour += " " + rent_end_minute_input.value + " perc";
+    }
   } else {
-    ddRentEndHour = ".....";
+    ddRentEndHour = "..... óra";
   }
 
   docDefinition["content"][2]["columns"][0]["text"][1]["text"] = ddClientName;
@@ -1592,6 +1778,8 @@ function refreshPdf() {
     iframe.src = dataUrl;
     targetElement.appendChild(iframe);
     document.getElementsByTagName("iframe");
+
+    //setIframeHeight();
   });
 }
 
@@ -1884,11 +2072,8 @@ function switchTheme() {
   if (darkTheme == false) {
     darkTheme = true;
     $(".billingo-logo").attr("src", "./images/billingo_logo_white.gif");
-    $(":root").css({
-      filter: "invert(100%)"
-    });
 
-    $(".billingo-logo, .footer, .custom-control-label, .preview, :root, .operation-icon, .admin-new-client").css({
+    $(":root, .billingo-logo, .footer, .custom-control-label, .preview, :root, .operation-icon, .admin-new-client, .admin-new-machine, .admin-new-tool").css({
       filter: "invert(100%)"
     });
 
@@ -1902,7 +2087,7 @@ function switchTheme() {
   } else {
     darkTheme = false;
     $(".billingo-logo").attr("src", "./images/billingo_logo.gif");
-    $(":root, .billingo-logo, .footer, .custom-control-label, .preview, .operation-icon, .admin-new-client").css({
+    $(":root, .billingo-logo, .footer, .custom-control-label, .preview, .operation-icon, .admin-new-client, .admin-new-machine, .admin-new-tool").css({
       filter: ""
     });
 
@@ -2324,16 +2509,41 @@ function changeTool() {
 }
 
 function showAdmin() {
+  refreshAdminClients();
+  refreshAdminMachines();
+  refreshAdminTools();
   if (admin == true) {
     $(".page-container").hide();
     $(".preview").hide();
     $(".admin").show();
+    $(".admin-select").show();
     admin = false;
   } else {
     $(".page-container").show();
     $(".preview").show();
     $(".admin").hide();
+    $(".admin-select").hide();
     admin = true;
+  }
+  showAdminOption(0);
+}
+
+function showAdminOption(adminOption) {
+  if (adminOption == 2) {
+    $(".admin-list-tools, .admin-new-tool").show();
+    $(".admin-list-machines, .admin-list-clients, .admin-new-client, .admin-new-machine").hide();
+    $(".admin-select-option-2").addClass("current");
+    $(".admin-select-option-1, .admin-select-option-0").removeClass("current");
+  } else if (adminOption == 1) {
+    $(".admin-list-tools, .admin-list-clients, .admin-new-client, .admin-new-tool").hide();
+    $(".admin-list-machines, .admin-new-machine").show();
+    $(".admin-select-option-1").addClass("current");
+    $(".admin-select-option-2, .admin-select-option-0").removeClass("current");
+  } else {
+    $(".admin-list-tools, .admin-list-machines, .admin-new-machine, .admin-new-tool").hide();
+    $(".admin-list-clients, .admin-new-client").show();
+    $(".admin-select-option-0").addClass("current");
+    $(".admin-select-option-2, .admin-select-option-1").removeClass("current");
   }
 }
 
@@ -2370,20 +2580,84 @@ function upLoadAdminClients(array) {
   }
 }
 
+function upLoadAdminMachines(array) {
+  for (var i = 0; i != array.length; i++) {
+    $.post("server.js", {
+      myMethod: "changeMachine",
+      machine: array[i],
+    }).done(function (data) {
+      if (processResponse(data, "array")[0] != undefined) {
+        $(".admin-table-machines").append(
+          "<tr><td>" +
+          processResponse(data, "array")[0] +
+          "</td><td>" +
+          processResponse(data, "array")[1] +
+          "</td><td>" +
+          processResponse(data, "array")[2] +
+          "</td><td>" +
+          processResponse(data, "array")[3] +
+          '</td><td><img class="operation-icon first" src="images/icon_edit.png" onclick="showEditFromAdminMachines(this)"/><img class="operation-icon last" src="images/icon_delete.png" onclick="deleteFromAdminMachines(this)"/></td>'
+        );
+      }
+    });
+  }
+}
+
+function upLoadAdminTools(array) {
+  for (var i = 0; i != array.length; i++) {
+    $.post("server.js", {
+      myMethod: "changeTool",
+      tool: array[i],
+    }).done(function (data) {
+      if (processResponse(data, "array")[0] != undefined) {
+        $(".admin-table-tools").append(
+          "<tr><td>" +
+          processResponse(data, "array")[0] +
+          "</td><td>" +
+          processResponse(data, "array")[1] +
+          "</td><td>" +
+          processResponse(data, "array")[2] +
+          "</td><td>" +
+          processResponse(data, "array")[3] +
+          '</td><td><img class="operation-icon first" src="images/icon_edit.png" onclick="showEditFromAdminTools(this)"/><img class="operation-icon last" src="images/icon_delete.png" onclick="deleteFromAdminTools(this)"/></td>'
+        );
+      }
+    });
+  }
+}
+
 function deleteFromAdminClients(caller) {
   if (confirm("Biztosan törli az ügyfelet? (Ok=igen, Mégse=nem)")) {
     $.post("server.js", {
       myMethod: "deleteClient",
       client: caller.parentNode.parentNode.childNodes[0].innerHTML,
-    }).done(function (data) {
+    });
+    refreshAdminClients();
+  }
+}
+
+function deleteFromAdminMachines(caller) {
+  if (confirm("Biztosan törli a gépet? (Ok=igen, Mégse=nem)")) {
+    $.post("server.js", {
+      myMethod: "deleteMachine",
+      machine: caller.parentNode.parentNode.childNodes[0].innerHTML,
+    });
+    caller.parentNode.parentNode.remove();
+  }
+}
+
+function deleteFromAdminTools(caller) {
+  if (confirm("Biztosan törli a szerszámot/kopóeszközt? (Ok=igen, Mégse=nem)")) {
+    $.post("server.js", {
+      myMethod: "deleteTool",
+      tool: caller.parentNode.parentNode.childNodes[0].innerHTML,
     });
     caller.parentNode.parentNode.remove();
   }
 }
 
 function showEditFromAdminClients(caller) {
-  $(".admin-view-clients").hide();
-  $(".admin-new-client").hide();
+  $(".admin-select, .admin-view-clients, .admin-new-client").hide();
   $(".admin-edit-clients").show();
   editingElement = caller.parentNode.parentNode.childNodes[0].innerHTML;
   $.post("server.js", {
@@ -2403,9 +2677,40 @@ function showEditFromAdminClients(caller) {
   });
 }
 
+function showEditFromAdminMachines(caller) {
+  $(".admin-select, .admin-view-machines, .admin-new-machine").hide();
+  $(".admin-edit-machines").show();
+  editingElement = caller.parentNode.parentNode.childNodes[0].innerHTML;
+  $.post("server.js", {
+    myMethod: "changeMachine",
+    machine: editingElement
+  }).done(function (data) {
+    var dataArray = processResponse(data, "array");
+    machine_type_input_edit.value = dataArray[0];
+    machine_value_input_edit.value = dataArray[1];
+    machine_fee_per_day_input_edit.value = dataArray[2];
+    machine_fee_per_3h_input_edit.value = dataArray[3];
+  });
+}
+
+function showEditFromAdminTools(caller) {
+  $(".admin-select, .admin-view-tools, .admin-new-tool").hide();
+  $(".admin-edit-tools").show();
+  editingElement = caller.parentNode.parentNode.childNodes[0].innerHTML;
+  $.post("server.js", {
+    myMethod: "changeTool",
+    tool: editingElement
+  }).done(function (data) {
+    var dataArray = processResponse(data, "array");
+    tool_type_input_edit.value = dataArray[0];
+    tool_wear_per_mm_input_edit.value = dataArray[1];
+    tool_fee_per_day_input_edit.value = dataArray[2];
+    tool_fee_per_3h_input_edit.value = dataArray[3];
+  });
+}
+
 function showAddFromAdminClients(caller) {
-  $(".admin-view-clients").hide();
-  $(".admin-new-client").hide();
+  $(".admin-select, .admin-view-clients, .admin-new-client").hide();
   $(".admin-add-clients").show();
   client_name_input_edit.value =
     guarantor_name_input_edit.value =
@@ -2418,9 +2723,26 @@ function showAddFromAdminClients(caller) {
     date_of_birtht_input_edit.value = "";
 }
 
+function showAddFromAdminMachines(caller) {
+  $(".admin-select, .admin-view-machines, .admin-new-machine").hide();
+  $(".admin-add-machines").show();
+  machine_type_input_edit.value =
+    machine_value_input_edit.value =
+    machine_fee_per_day_input_edit.value =
+    machine_fee_per_3h_input_edit.value = "";
+}
+
+function showAddFromAdminTools(caller) {
+  $(".admin-select, .admin-view-tools, .admin-new-tool").hide();
+  $(".admin-add-tools").show();
+  tool_type_input_edit.value =
+    tool_wear_per_mm_input_edit.value =
+    tool_fee_per_day_input_edit.value =
+    tool_fee_per_3h_input_edit.value = "";
+}
+
 function dontSaveEditedClient() {
-  $(".admin-view-clients").show();
-  $(".admin-new-client").show();
+  $(".admin-select, .admin-view-clients, .admin-new-client").show();
   $(".admin-edit-clients").hide();
   editingElement = "";
   client_name_input_edit.value =
@@ -2435,6 +2757,69 @@ function dontSaveEditedClient() {
   refreshAdminClients();
 }
 
+function dontSaveEditedMachine() {
+  $(".admin-select, .admin-view-machines, .admin-new-machine").show();
+  $(".admin-edit-machines").hide();
+  editingElement =
+    machine_type_input_edit.value =
+    machine_value_input_edit.value =
+    machine_fee_per_day_input_edit.value =
+    machine_fee_per_3h_input_edit.value = "";
+  refreshAdminMachines();
+}
+
+function dontSaveEditedTool() {
+  $(".admin-select, .admin-view-tools, .admin-new-tool").show();
+  $(".admin-edit-tools").hide();
+  editingElement =
+    tool_type_input_edit.value =
+    tool_wear_per_mm_input_edit.value =
+    tool_fee_per_day_input_edit.value =
+    tool_fee_per_3h_input_edit.value = "";
+  refreshAdminMachines();
+}
+
+function saveEditedMachine() {
+  var exit = false;
+  $.post("server.js", {
+    myMethod: "startDataMachines",
+  }).done(function (data) {
+    var dataArray = processResponse(data, "array");
+    for (var i = 0; i != dataArray.length; i++) {
+      if (dataArray[i] == machine_type_input_edit.value && machine_type_input_edit.value != editingElement) {
+        alert("Hiba: Az adatbázisban már van ilyen nevű gép!");
+        exit = true;
+      }
+    }
+    if (machine_type_input_edit.value.replace(/ /g, "") == "") {
+      alert("Hiba: A gép neve nem lehet üres!");
+      exit = true;
+    }
+    if (exit == false) {
+      $.post("server.js", {
+        myMethod: "deleteMachine",
+        machine: editingElement,
+      }).done(function (data) {
+      });
+      $.post("server.js", {
+        myMethod: "newMachine",
+        machine: machine_type_input_edit.value,
+        machineValue: machine_value_input_edit.value,
+        machineFeePerDay: machine_fee_per_day_input_edit.value,
+        machineFeePer3h: machine_fee_per_3h_input_edit.value
+      });
+      editingElement =
+        machine_type_input_edit.value =
+        machine_value_input_edit.value =
+        machine_fee_per_day_input_edit.value =
+        machine_fee_per_3h_input_edit.value = "";
+      refreshAdminMachines();
+      $(".admin-view-machines, .admin-new-machine, .admin-select").show();
+      $(".admin-edit-machines").hide();
+    }
+  });
+}
+
 function saveEditedClient() {
   var exit = false;
   $.post("server.js", {
@@ -2442,12 +2827,12 @@ function saveEditedClient() {
   }).done(function (data) {
     var dataArray = processResponse(data, "array");
     for (var i = 0; i != dataArray.length; i++) {
-      if (dataArray[i] == client_name_input_edit.value) {
+      if (dataArray[i] == client_name_input_edit.value && client_name_input_edit.value != editingElement) {
         alert("Hiba: Az adatbázisban már van ilyen nevű ügyfél!");
         exit = true;
       }
     }
-    if (client_name_input_edit.value.replace(/ /g,"") == "") {
+    if (client_name_input_edit.value.replace(/ /g, "") == "") {
       alert("Hiba: Az ügyfél neve nem lehet üres!");
       exit = true;
     }
@@ -2455,7 +2840,6 @@ function saveEditedClient() {
       $.post("server.js", {
         myMethod: "deleteClient",
         client: editingElement,
-      }).done(function (data) {
       });
       $.post("server.js", {
         myMethod: "newClient",
@@ -2468,10 +2852,9 @@ function saveEditedClient() {
         operationAddres: operation_addres_input_edit.value,
         motherName: mother_name_input_edit.value,
         dateOfBirth: date_of_birtht_input_edit.value
-      }).done(function (data) {
       });
-      editingElement = "";
-      client_name_input_edit.value =
+      editingElement =
+        client_name_input_edit.value =
         guarantor_name_input_edit.value =
         client_addres_input_edit.value =
         guarantor_addres_input_edit.value =
@@ -2481,12 +2864,52 @@ function saveEditedClient() {
         mother_name_input_edit.value =
         date_of_birtht_input_edit.value = "";
       refreshAdminClients();
-      $(".admin-view-clients").show();
-      $(".admin-new-client").show();
+      $(".admin-view-clients, .admin-new-client, .admin-select").show();
       $(".admin-edit-clients").hide();
     }
   });
 }
+
+function saveEditedTool() {
+  var exit = false;
+  $.post("server.js", {
+    myMethod: "startDataTools",
+  }).done(function (data) {
+    var dataArray = processResponse(data, "array");
+    for (var i = 0; i != dataArray.length; i++) {
+      if (dataArray[i] == tool_type_input_edit.value && tool_type_input_edit.value != editingElement) {
+        alert("Hiba: Az adatbázisban már van ilyen nevű szerszám/kopóeszköz!");
+        exit = true;
+      }
+    }
+    if (tool_type_input_edit.value.replace(/ /g, "") == "") {
+      alert("Hiba: A szerszám/kopóeszköz neve nem lehet üres!");
+      exit = true;
+    }
+    if (exit == false) {
+      $.post("server.js", {
+        myMethod: "deleteTool",
+        tool: editingElement,
+      });
+      $.post("server.js", {
+        myMethod: "newTool",
+        tool: tool_type_input_edit.value,
+        toolWearPerMm: tool_wear_per_mm_input_edit.value,
+        toolFeePerDay: tool_fee_per_day_input_edit.value,
+        toolFeePer3h: tool_fee_per_3h_input_edit.value
+      });
+      editingElement =
+        tool_type_input_edit.value =
+        tool_wear_per_mm_input_edit.value =
+        tool_fee_per_day_input_edit.value =
+        tool_fee_per_3h_input_edit.value = "";
+      refreshAdminTools();
+      $(".admin-select, .admin-view-tools, .admin-new-tool").show();
+      $(".admin-edit-tools").hide();
+    }
+  });
+}
+
 
 function addClientFromAdmin() {
   var exit = false;
@@ -2500,7 +2923,7 @@ function addClientFromAdmin() {
         exit = true;
       }
     }
-    if (client_name_input_add.value.replace(/ /g,"") == "") {
+    if (client_name_input_add.value.replace(/ /g, "") == "") {
       alert("Hiba: Az ügyfél neve nem lehet üres!");
       exit = true;
     }
@@ -2516,7 +2939,6 @@ function addClientFromAdmin() {
         operationAddres: operation_addres_input_add.value,
         motherName: mother_name_input_add.value,
         dateOfBirth: date_of_birtht_input_add.value
-      }).done(function (data) {
       });
       client_name_input_add.value =
         guarantor_name_input_add.value =
@@ -2528,16 +2950,86 @@ function addClientFromAdmin() {
         mother_name_input_add.value =
         date_of_birtht_input_add.value = "";
       refreshAdminClients();
-      $(".admin-view-clients").show();
-      $(".admin-new-client").show();
+      $(".admin-view-clients, .admin-new-client, .admin-select").show();
       $(".admin-add-clients").hide();
     }
   });
 }
 
+function addMachineFromAdmin() {
+  var exit = false;
+  $.post("server.js", {
+    myMethod: "startDataMachines",
+  }).done(function (data) {
+    var dataArray = processResponse(data, "array");
+    for (var i = 0; i != dataArray.length; i++) {
+      if (dataArray[i] == machine_type_input_add.value) {
+        alert("Hiba: Az adatbázisban már van ilyen nevű gép!");
+        exit = true;
+      }
+    }
+    if (machine_type_input_add.value.replace(/ /g, "") == "") {
+      alert("Hiba: A gép neve nem lehet üres!");
+      exit = true;
+    }
+    if (exit == false) {
+      $.post("server.js", {
+        myMethod: "newMachine",
+        machine: machine_type_input_add.value,
+        machineValue: machine_value_input_add.value,
+        machineFeePerDay: machine_fee_per_day_input_add.value,
+        machineFeePer3h: machine_fee_per_3h_input_add.value
+      });
+      editingElement =
+        machine_type_input_add.value =
+        machine_value_input_add.value =
+        machine_fee_per_day_input_add.value =
+        machine_fee_per_3h_input_add.value = "";
+      refreshAdminMachines();
+      $(".admin-view-machines, .admin-new-machine, .admin-select").show();
+      $(".admin-add-machines").hide();
+    }
+  });
+}
+
+function addToolFromAdmin() {
+  var exit = false;
+  $.post("server.js", {
+    myMethod: "startDataTools",
+  }).done(function (data) {
+    var dataArray = processResponse(data, "array");
+    for (var i = 0; i != dataArray.length; i++) {
+      if (dataArray[i] == tool_type_input_add.value) {
+        alert("Hiba: Az adatbázisban már van ilyen nevű szerszám/kopóeszköz!");
+        exit = true;
+      }
+    }
+    if (tool_type_input_add.value.replace(/ /g, "") == "") {
+      alert("Hiba: A szerszám/kopóeszköz neve nem lehet üres!");
+      exit = true;
+    }
+    if (exit == false) {
+      $.post("server.js", {
+        myMethod: "newTool",
+        tool: tool_type_input_add.value,
+        toolWearPerMm: tool_wear_per_mm_input_add.value,
+        toolFeePerDay: tool_fee_per_day_input_add.value,
+        toolFeePer3h: tool_fee_per_3h_input_add.value
+      });
+      editingElement =
+        tool_type_input_add.value =
+        tool_wear_per_mm_input_add.value =
+        tool_fee_per_day_input_add.value =
+        tool_fee_per_3h_input_add.value = "";
+      refreshAdminTools();
+      $(".admin-view-tools, .admin-new-tool, .admin-select").show();
+      $(".admin-add-tools").hide();
+    }
+  });
+}
+
 function dontAddClientFromAdmin() {
-  $(".admin-view-clients").show();
-  $(".admin-new-client").show();
+  $(".admin-view-clients, .admin-new-client, .admin-select").show();
   $(".admin-add-clients").hide();
   client_name_input_add.value =
     guarantor_name_input_add.value =
@@ -2549,6 +3041,27 @@ function dontAddClientFromAdmin() {
     mother_name_input_add.value =
     date_of_birtht_input_add.value = "";
   refreshAdminClients();
+}
+
+function dontAddMachineFromAdmin() {
+  $(".admin-view-machines, .admin-new-machine, .admin-select").show();
+  $(".admin-add-machines").hide();
+  machine_type_input_add.value =
+    machine_value_input_add.value =
+    machine_fee_per_day_input_add.value =
+    machine_fee_per_3h_input_add.value = "";
+  refreshAdminMachines();
+}
+
+function dontAddToolFromAdmin() {
+  $(".admin-view-tools, .admin-new-tool, .admin-select").show();
+  $(".admin-add-tools").hide();
+  editingElement =
+    tool_type_input_edit.value =
+    tool_wear_per_mm_input_edit.value =
+    tool_fee_per_day_input_edit.value =
+    tool_fee_per_3h_input_edit.value = "";
+  refreshAdminTools();
 }
 
 function refreshAdminClients() {
@@ -2566,6 +3079,44 @@ function refreshAdminClients() {
   }).done(function (data) {
     var dataHtml = processResponse(data, "html");
     client_name_select.innerHTML = dataHtml;
+  });
+}
+
+function refreshAdminMachines() {
+  const myNode = document.getElementById("admin-table-machines");
+  myNode.innerHTML =
+    '<tr><th class="table-title-machines">Gép neve</th><th class="table-title-machines">Bérleti tárgy nettó értéke (Ft)</th><th class="table-title-machines">Napi díj (Ft)</th><th class="table-title-machines ">3 órás (Ft)</th><th class="table-title-machines last">Műveletek</th></tr>';
+  $.post("server.js", {
+    myMethod: "startDataMachines",
+  }).done(function (data) {
+    var dataArray = processResponse(data, "array");
+    upLoadAdminMachines(dataArray);
+  });
+  $.post("server.js", {
+    myMethod: "startDataMachines",
+  }).done(function (data) {
+    var dataHtml = processResponse(data, "html");
+    machine_type_selects[0].innerHTML =
+      machine_type_selects[1].innerHTML =
+      machine_type_selects[2].innerHTML = dataHtml;
+  });
+}
+
+function refreshAdminTools() {
+  const myNode = document.getElementById("admin-table-tools");
+  myNode.innerHTML =
+    '<tr><th class="table-title-tools">Szerszám/kopóeszköz neve</th><th class="table-title-tools">Kopásdíj (Ft/mm)</th><th class="table-title-tools">Napi díj (Ft)</th><th class="table-title-tools ">3 órás (Ft)</th><th class="table-title-tools last">Műveletek</th></tr>';
+  $.post("server.js", {
+    myMethod: "startDataTools",
+  }).done(function (data) {
+    var dataArray = processResponse(data, "array");
+    upLoadAdminTools(dataArray);
+  });
+  $.post("server.js", {
+    myMethod: "startDataTools",
+  }).done(function (data) {
+    var dataHtml = processResponse(data, "html");
+    tool_type_select.innerHTML = dataHtml;
   });
 }
 
@@ -2603,13 +3154,6 @@ $(document).ready(function () {
   }).done(function (data) {
     var dataHtml = processResponse(data, "html");
     tool_type_select.innerHTML = dataHtml;
-  });
-
-  $.post("server.js", {
-    myMethod: "startDataClients",
-  }).done(function (data) {
-    var dataArray = processResponse(data, "array");
-    upLoadAdminClients(dataArray);
   });
 
   refreshPdf();

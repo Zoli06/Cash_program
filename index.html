@@ -1,3 +1,4 @@
+<!--Attention! Never host it on the internet because it have lot of vulnerabilites-->
 <!DOCTYPE html>
 <html lang="hu">
 
@@ -16,6 +17,24 @@
   <title>Számlázó</title>
   <link rel="icon" type="image/png" href="./images/contract_blue.png" />
   <link rel="stylesheet" href="./css/styles.css" />
+  <script defer>
+    /*var frame;
+
+    // Adjusting the iframe height
+    function setIframeHeight()
+    // function execute while load the iframe 
+    {
+      frame = document.querySelector("iframe");
+
+      console.log(frame.style);
+
+      // set the height of the iframe as  
+      // the height of the iframe content 
+      frame.style.height =
+        frame.contentWindow.document.body.scrollHeight + 'px';
+        console.log($(frame).contents().children().children('body').css('scrollHeight'))
+    }*/
+  </script>
   <script src="./js/app.js"></script>
   <link href="./fonts/glegoo/css2.css" rel="stylesheet" />
   <script src="./jquery/jquery-ui.min.js"></script>
@@ -24,8 +43,7 @@
 <body>
   <p class="theme-switcher-p">
     <img class="theme-switcher" alt="Theme_switcher" src="./images/theme_switcher.gif" onclick="switchTheme()" />
-    <img class="theme-switcher" alt="Theme_switcher" src="./images/settings.png"
-      onclick="showAdmin(); refreshAdminClients()" />
+    <img class="theme-switcher" alt="Theme_switcher" src="./images/settings.png" onclick="showAdmin()" />
   </p>
   <p class="inspired-by">
     Design inspired by<br /><a href="https://www.billingo.hu/" target="_blank" class="billingo"><img
@@ -196,10 +214,10 @@
               id="machine-value-input-1" />
           </div>
           <div class="machine-fee machine-fee-1">
-            <p class="machine-fee-per-day-p machine-fee-per-day-p-1"">
-                Napi díj (Ft):
-              </p>
-              <p class=" machine-fee-per-3h-p machine-fee-per-3h-p-1"">
+            <p class="machine-fee-per-day-p machine-fee-per-day-p-1">
+              Napi díj (Ft):
+            </p>
+            <p class="machine-fee-per-3h-p machine-fee-per-3h-p-1">
               3 órás díj (Ft):
             </p>
             <input autocomplete="off" type="text" class="machine-fee-per-day-input machine-fee-per-day-input-1"
@@ -419,7 +437,7 @@
         </div>
         <div class="tool-wear-per-mm">
           <!--HUNGARIAN: kopás/mm-->
-          <p class="tool-wear-per-mm-p">Kopásdíj (mm):</p>
+          <p class="tool-wear-per-mm-p">Kopásdíj (Ft/mm):</p>
           <input autocomplete="off" type="text" class="tool-wear-per-mm-input" id="tool-wear-per-mm-input" />
         </div>
         <div class="tool-fee">
@@ -489,6 +507,17 @@
     <button class="admin-new-client" onclick="showAddFromAdminClients(this)">
       <i class="buttton-icon icon fas fa-plus"></i>Új ügyfél
     </button>
+    <button class="admin-new-machine" onclick="showAddFromAdminMachines(this)">
+      <i class="buttton-icon icon fas fa-plus"></i>Új gép
+    </button>
+    <button class="admin-new-tool" onclick="showAddFromAdminTools(this)">
+      <i class="buttton-icon icon fas fa-plus"></i>Új szerszám/kopóeszköz
+    </button>
+    <div class="admin-select">
+      <button class="admin-select-option-0" onclick="showAdminOption(0)">Ügyfelek</button>
+      <button class="admin-select-option-1" onclick="showAdminOption(1)">Gépek</button>
+      <button class="admin-select-option-2" onclick="showAdminOption(2)">Szerszámok/kopóeszközök</button>
+    </div>
     <div class="admin-list-clients">
       <div class="admin-view-clients lastelement">
         <div class="admin-title-clients">
@@ -530,8 +559,7 @@
         </div>
         <div class="client-name">
           <p class="client-name-p">Bérlő neve:</p>
-          <input autocomplete="off" type="text" class="client-name-input" id="client-name-input-edit"
-            onkeyup="changeClient()" />
+          <input autocomplete="off" type="text" class="client-name-input" id="client-name-input-edit" />
         </div>
         <div class="guarantor-name">
           <p class="guarantor-name-p">Meghatalmazott/kezes:</p>
@@ -580,8 +608,7 @@
         </div>
         <div class="client-name">
           <p class="client-name-p">Bérlő neve:</p>
-          <input autocomplete="off" type="text" class="client-name-input" id="client-name-input-add"
-            onkeyup="changeClient()" />
+          <input autocomplete="off" type="text" class="client-name-input" id="client-name-input-add" />
         </div>
         <div class="guarantor-name">
           <p class="guarantor-name-p">Meghatalmazott/kezes:</p>
@@ -620,6 +647,168 @@
             <i class="buttton-icon icon fas fa-times"></i>Mégse
           </button>
           <button class="print" onclick="addClientFromAdmin()">
+            <i class="icon fas fa-save"></i>Mentés
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="admin-list-machines">
+      <div class="admin-view-machines lastelement">
+        <div class="admin-title-machines">
+          <h2 class="admin-title-machines-h2">Gépek</h2>
+        </div>
+        <table class="admin-table-machines" id="admin-table-machines">
+          <tr>
+            <th class="table-title-machines">Gép neve</th>
+            <th class="table-title-machines">Bérleti tárgy nettó értéke (Ft)</th>
+            <th class="table-title-machines">Napi díj (Ft)</th>
+            <th class="table-title-machines ">3 órás (Ft)</th>
+            <th class="table-title-machines last">Műveletek</th>
+          </tr>
+        </table>
+      </div>
+      <div class="admin-edit-machines lastelement">
+        <div class="admin-title-clients-edit">
+          <h2>Gép szerkesztése</h2>
+        </div>
+        <div class="machine-type">
+          <p class="machine-type-p">Gép neve:</p>
+          <input autocomplete="off" type="text" class="machine-type-input" id="machine-type-input-edit" />
+        </div>
+        <div class="machine-value">
+          <p class="machine-value-p">
+            Bérleti tárgy nettó értéke (Ft):
+          </p>
+          <input autocomplete="off" type="text" class="machine-value-input" id="machine-value-input-edit" />
+        </div>
+        <div class="machine-fee-edit">
+          <p class="machine-fee-per-day-p">
+            Napi díj (Ft):
+          </p>
+          <input autocomplete="off" type="text" class="machine-fee-per-day-input" id="machine-fee-per-day-input-edit" />
+        </div>
+        <div class="machine-fee-edit lastelement">
+          <p class="machine-fee-per-3h-p">
+            3 órás (Ft):
+          </p>
+          <input autocomplete="off" type="text" class="machine-fee-per-3h-input" id="machine-fee-per-3h-input-edit" />
+        </div>
+        <div class="footer lastelement">
+          <button class="reset" onclick="dontSaveEditedMachine()">
+            <i class="buttton-icon icon fas fa-times"></i>Mégse
+          </button>
+          <button class="print" onclick="saveEditedMachine()">
+            <i class="icon fas fa-save"></i>Mentés
+          </button>
+        </div>
+      </div>
+      <div class="admin-add-machines lastelement">
+        <div class="admin-title-clients-add">
+          <h2>Gép hozzáadása</h2>
+        </div>
+        <div class="machine-type">
+          <p class="machine-type-p">Gép neve:</p>
+          <input autocomplete="off" type="text" class="machine-type-input" id="machine-type-input-add" />
+        </div>
+        <div class="machine-value">
+          <p class="machine-value-p">
+            Bérleti tárgy nettó értéke (Ft):
+          </p>
+          <input autocomplete="off" type="text" class="machine-value-input" id="machine-value-input-add" />
+        </div>
+        <div class="machine-fee-add">
+          <p class="machine-fee-per-day-p">
+            Napi díj (Ft):
+          </p>
+          <input autocomplete="off" type="text" class="machine-fee-per-day-input" id="machine-fee-per-day-input-add" />
+        </div>
+        <div class="machine-fee-add lastelement">
+          <p class="machine-fee-per-3h-p">
+            3 órás (Ft):
+          </p>
+          <input autocomplete="off" type="text" class="machine-fee-per-3h-input" id="machine-fee-per-3h-input-add" />
+        </div>
+        <div class="footer lastelement">
+          <button class="reset" onclick="dontAddMachineFromAdmin()">
+            <i class="buttton-icon icon fas fa-times"></i>Mégse
+          </button>
+          <button class="print" onclick="addMachineFromAdmin()">
+            <i class="icon fas fa-save"></i>Mentés
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="admin-list-tools">
+      <div class="admin-view-tools lastelement">
+        <div class="admin-title-tools">
+          <h2 class="admin-title-tools-h2">Szerszám/kopóeszköz</h2>
+        </div>
+        <table class="admin-table-tools" id="admin-table-tools">
+          <tr>
+            <th class="table-title-tools">Szerszám/kopóeszköz neve</th>
+            <th class="table-title-tools">Kopásdíj (Ft/mm)</th>
+            <th class="table-title-tools">Napi díj (Ft)</th>
+            <th class="table-title-tools ">3 órás (Ft)</th>
+            <th class="table-title-tools last">Műveletek</th>
+          </tr>
+        </table>
+      </div>
+      <div class="admin-edit-tools lastelement">
+        <div class="admin-title-tools-edit">
+          <h2>Szerszám/kopóeszköz szerkesztése</h2>
+        </div>
+        <div class="tool-type">
+          <p class="tool-type-p">Szerszám/kopóeszköz:</p>
+          <input autocomplete="off" type="text" class="tool-type-input" id="tool-type-input-edit" />
+        </div>
+        <div class="tool-wear-per-mm">
+          <!--HUNGARIAN: kopás/mm-->
+          <p class="tool-wear-per-mm-p">Kopásdíj (Ft/mm):</p>
+          <input autocomplete="off" type="text" class="tool-wear-per-mm-input" id="tool-wear-per-mm-input-edit" />
+        </div>
+        <div class="tool-fee-edit">
+          <p class="tool-fee-per-day-p">Napi díj (Ft):</p>
+          <input autocomplete="off" type="text" class="tool-fee-per-day-input" id="tool-fee-per-day-input-edit" />
+        </div>
+        <div class="tool-fee-edit lastelement">
+          <p class="tool-fee-per-3h-p">3 órás díj (Ft):</p>
+          <input autocomplete="off" type="text" class="tool-fee-per-3h-input" id="tool-fee-per-3h-input-edit" />
+        </div>
+        <div class="footer lastelement">
+          <button class="reset" onclick="dontSaveEditedTool()">
+            <i class="buttton-icon icon fas fa-times"></i>Mégse
+          </button>
+          <button class="print" onclick="saveEditedTool()">
+            <i class="icon fas fa-save"></i>Mentés
+          </button>
+        </div>
+      </div>
+      <div class="admin-add-tools lastelement">
+        <div class="admin-title-tools-add">
+          <h2>Szerszám/kopóeszköz hozzáadása</h2>
+        </div>
+        <div class="tool-type">
+          <p class="tool-type-p">Szerszám/kopóeszköz:</p>
+          <input autocomplete="off" type="text" class="tool-type-input" id="tool-type-input-add" />
+        </div>
+        <div class="tool-wear-per-mm">
+          <!--HUNGARIAN: kopás/mm-->
+          <p class="tool-wear-per-mm-p">Kopásdíj (Ft/mm):</p>
+          <input autocomplete="off" type="text" class="tool-wear-per-mm-input" id="tool-wear-per-mm-input-add" />
+        </div>
+        <div class="tool-fee-add">
+          <p class="tool-fee-per-day-p">Napi díj (Ft):</p>
+          <input autocomplete="off" type="text" class="tool-fee-per-day-input" id="tool-fee-per-day-input-add" />
+        </div>
+        <div class="tool-fee-add lastelement">
+          <p class="tool-fee-per-3h-p">3 órás díj (Ft):</p>
+          <input autocomplete="off" type="text" class="tool-fee-per-3h-input" id="tool-fee-per-3h-input-add" />
+        </div>
+        <div class="footer lastelement">
+          <button class="reset" onclick="dontAddToolFromAdmin()">
+            <i class="buttton-icon icon fas fa-times"></i>Mégse
+          </button>
+          <button class="print" onclick="addToolFromAdmin()">
             <i class="icon fas fa-save"></i>Mentés
           </button>
         </div>

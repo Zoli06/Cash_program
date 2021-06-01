@@ -6,7 +6,7 @@ var mysql = require("mysql");
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "*****",
+  password: "Zoli94631782",
 });
 
 function getMIME(url) {
@@ -30,7 +30,7 @@ function processJSON(data) {
   var lastNumber = -1;
   data = decodeURI(data);
   for (var i = 0; i != data.length; i++) {
-    data = data.replace("+", " ").replace("'", '"');
+    data = data.replace("+", " ").replace("'", '"').replace("<", "");
   }
   data = decodeURIComponent(data);
   data = "&" + data + "&";
@@ -63,7 +63,7 @@ function onRequest(request, response) {
     });
     request.on("end", () => {
       console.log(processJSON(body));
-      console.log(processJSON(body[9]));
+      console.log(body);
       switch (processJSON(body)[0]) {
         case "myMethod=startDataClients":
           con.query("SELECT Client FROM clients", function (
@@ -104,8 +104,8 @@ function onRequest(request, response) {
         case "myMethod=changeTool":
           con.query(
             "SELECT * FROM tools WHERE Tool='" +
-              processJSON(body)[1].replace("tool=", "") +
-              "'",
+            processJSON(body)[1].replace("tool=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -115,8 +115,8 @@ function onRequest(request, response) {
         case "myMethod=changeClient":
           con.query(
             "SELECT * FROM clients WHERE Client='" +
-              processJSON(body)[1].replace("client=", "") +
-              "'",
+            processJSON(body)[1].replace("client=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -126,8 +126,8 @@ function onRequest(request, response) {
         case "myMethod=changeMachine":
           con.query(
             "SELECT * FROM machines WHERE Machine='" +
-              processJSON(body)[1].replace("machine=", "") +
-              "'",
+            processJSON(body)[1].replace("machine=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -137,24 +137,24 @@ function onRequest(request, response) {
         case "myMethod=newClient":
           con.query(
             "INSERT INTO clients(Client, GuarantorName, ClientAddres, GuarantorAddres, IdNumber, Phone, OperationAddress, MotherName, DateOfBirth) VALUES ('" +
-              processJSON(body)[1].replace("client=", "") +
-              "', '" +
-              processJSON(body)[2].replace("guarantorName=", "") +
-              "', '" +
-              processJSON(body)[3].replace("clientAddres=", "") +
-              "', '" +
-              processJSON(body)[4].replace("guarantorAddres=", "") +
-              "', '" +
-              processJSON(body)[5].replace("IDNumber=", "") +
-              "', '" +
-              processJSON(body)[6].replace("phone=", "") +
-              "', '" +
-              processJSON(body)[7].replace("operationAddres=", "") +
-              "', '" +
-              processJSON(body)[8].replace("motherName=", "") +
-              "', '" +
-              processJSON(body)[9].replace("dateOfBirth=", "") +
-              "');",
+            processJSON(body)[1].replace("client=", "") +
+            "', '" +
+            processJSON(body)[2].replace("guarantorName=", "") +
+            "', '" +
+            processJSON(body)[3].replace("clientAddres=", "") +
+            "', '" +
+            processJSON(body)[4].replace("guarantorAddres=", "") +
+            "', '" +
+            processJSON(body)[5].replace("IDNumber=", "") +
+            "', '" +
+            processJSON(body)[6].replace("phone=", "") +
+            "', '" +
+            processJSON(body)[7].replace("operationAddres=", "") +
+            "', '" +
+            processJSON(body)[8].replace("motherName=", "") +
+            "', '" +
+            processJSON(body)[9].replace("dateOfBirth=", "") +
+            "');",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -164,32 +164,32 @@ function onRequest(request, response) {
         case "myMethod=updateClient":
           con.query(
             "DELETE FROM clients WHERE Client='" +
-              processJSON(body)[1].replace("client=", "") +
-              "'",
+            processJSON(body)[1].replace("client=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
             }
           );
           con.query(
             "INSERT INTO clients(Client, GuarantorName, ClientAddres, GuarantorAddres, IdNumber, Phone, OperationAddress, MotherName, DateOfBirth) VALUES ('" +
-              processJSON(body)[1].replace("client=", "") +
-              "', '" +
-              processJSON(body)[2].replace("guarantorName=", "") +
-              "', '" +
-              processJSON(body)[3].replace("clientAddres=", "") +
-              "', '" +
-              processJSON(body)[4].replace("guarantorAddres=", "") +
-              "', '" +
-              processJSON(body)[5].replace("IDNumber=", "") +
-              "', '" +
-              processJSON(body)[6].replace("phone=", "") +
-              "', '" +
-              processJSON(body)[7].replace("operationAddres=", "") +
-              "', '" +
-              processJSON(body)[8].replace("motherName=", "") +
-              "', '" +
-              processJSON(body)[9].replace("dateOfBirth=", "") +
-              "');",
+            processJSON(body)[1].replace("client=", "") +
+            "', '" +
+            processJSON(body)[2].replace("guarantorName=", "") +
+            "', '" +
+            processJSON(body)[3].replace("clientAddres=", "") +
+            "', '" +
+            processJSON(body)[4].replace("guarantorAddres=", "") +
+            "', '" +
+            processJSON(body)[5].replace("IDNumber=", "") +
+            "', '" +
+            processJSON(body)[6].replace("phone=", "") +
+            "', '" +
+            processJSON(body)[7].replace("operationAddres=", "") +
+            "', '" +
+            processJSON(body)[8].replace("motherName=", "") +
+            "', '" +
+            processJSON(body)[9].replace("dateOfBirth=", "") +
+            "');",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -199,14 +199,14 @@ function onRequest(request, response) {
         case "myMethod=newMachine":
           con.query(
             "INSERT INTO machines(Machine, Value, Fee, Fee3h) VALUES ('" +
-              processJSON(body)[1].replace("machine=", "") +
-              "', '" +
-              processJSON(body)[2].replace("machineValue=", "") +
-              "', '" +
-              processJSON(body)[3].replace("machineFeePerDay=", "") +
-              "', '" +
-              processJSON(body)[4].replace("machineFeePer3h=", "") +
-              "');",
+            processJSON(body)[1].replace("machine=", "") +
+            "', '" +
+            processJSON(body)[2].replace("machineValue=", "") +
+            "', '" +
+            processJSON(body)[3].replace("machineFeePerDay=", "") +
+            "', '" +
+            processJSON(body)[4].replace("machineFeePer3h=", "") +
+            "');",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -216,22 +216,22 @@ function onRequest(request, response) {
         case "myMethod=updateMachine":
           con.query(
             "DELETE FROM machines WHERE Machine='" +
-              processJSON(body)[1].replace("machine=", "") +
-              "'",
+            processJSON(body)[1].replace("machine=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
             }
           );
           con.query(
             "INSERT INTO machines(Machine, Value, Fee, Fee3h) VALUES ('" +
-              processJSON(body)[1].replace("machine=", "") +
-              "', '" +
-              processJSON(body)[2].replace("machineValue=", "") +
-              "', '" +
-              processJSON(body)[3].replace("machineFeePerDay=", "") +
-              "', '" +
-              processJSON(body)[4].replace("machineFeePer3h=", "") +
-              "');",
+            processJSON(body)[1].replace("machine=", "") +
+            "', '" +
+            processJSON(body)[2].replace("machineValue=", "") +
+            "', '" +
+            processJSON(body)[3].replace("machineFeePerDay=", "") +
+            "', '" +
+            processJSON(body)[4].replace("machineFeePer3h=", "") +
+            "');",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -241,8 +241,8 @@ function onRequest(request, response) {
         case "myMethod=newAccessorie":
           con.query(
             "INSERT INTO accessories(Accessorie) VALUES ('" +
-              processJSON(body)[1].replace("accessorie=", "") +
-              "');",
+            processJSON(body)[1].replace("accessorie=", "") +
+            "');",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -252,16 +252,16 @@ function onRequest(request, response) {
         case "myMethod=updateAccessorie":
           con.query(
             "DELETE FROM accessories WHERE Accessorie='" +
-              processJSON(body)[1].replace("accessorie=", "") +
-              "'",
+            processJSON(body)[1].replace("accessorie=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
             }
           );
           con.query(
             "INSERT INTO accessories(Accessorie) VALUES ('" +
-              processJSON(body)[1].replace("accessorie=", "") +
-              "');",
+            processJSON(body)[1].replace("accessorie=", "") +
+            "');",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -271,8 +271,8 @@ function onRequest(request, response) {
         case "myMethod=changeAccessorie":
           con.query(
             "SELECT * FROM accessories WHERE Accessorie='" +
-              processJSON(body)[1].replace("accessorie=", "") +
-              "'",
+            processJSON(body)[1].replace("accessorie=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -282,14 +282,14 @@ function onRequest(request, response) {
         case "myMethod=newTool":
           con.query(
             "INSERT INTO tools(Tool, WearPerMm, Fee, Fee3h) VALUES ('" +
-              processJSON(body)[1].replace("tool=", "") +
-              "', '" +
-              processJSON(body)[2].replace("toolWearPerMm=", "") +
-              "', '" +
-              processJSON(body)[3].replace("toolFeePerDay=", "") +
-              "', '" +
-              processJSON(body)[4].replace("toolFeePer3h=", "") +
-              "');",
+            processJSON(body)[1].replace("tool=", "") +
+            "', '" +
+            processJSON(body)[2].replace("toolWearPerMm=", "") +
+            "', '" +
+            processJSON(body)[3].replace("toolFeePerDay=", "") +
+            "', '" +
+            processJSON(body)[4].replace("toolFeePer3h=", "") +
+            "');",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -299,22 +299,22 @@ function onRequest(request, response) {
         case "myMethod=updateTool":
           con.query(
             "DELETE FROM tools WHERE Tool='" +
-              processJSON(body)[1].replace("tool=", "") +
-              "'",
+            processJSON(body)[1].replace("tool=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
             }
           );
           con.query(
             "INSERT INTO tools(Tool, WearPerMm, Fee, Fee3h) VALUES ('" +
-              processJSON(body)[1].replace("tool=", "") +
-              "', '" +
-              processJSON(body)[2].replace("toolWearPerMm=", "") +
-              "', '" +
-              processJSON(body)[3].replace("toolFeePerDay=", "") +
-              "', '" +
-              processJSON(body)[4].replace("toolFeePer3h=", "") +
-              "');",
+            processJSON(body)[1].replace("tool=", "") +
+            "', '" +
+            processJSON(body)[2].replace("toolWearPerMm=", "") +
+            "', '" +
+            processJSON(body)[3].replace("toolFeePerDay=", "") +
+            "', '" +
+            processJSON(body)[4].replace("toolFeePer3h=", "") +
+            "');",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -324,8 +324,8 @@ function onRequest(request, response) {
         case "myMethod=deleteTool":
           con.query(
             "DELETE FROM tools WHERE Tool='" +
-              processJSON(body)[1].replace("tool=", "") +
-              "'",
+            processJSON(body)[1].replace("tool=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -335,8 +335,8 @@ function onRequest(request, response) {
         case "myMethod=deleteAccessorie":
           con.query(
             "DELETE FROM accessories WHERE Accessorie='" +
-              processJSON(body)[1].replace("accessorie=", "") +
-              "'",
+            processJSON(body)[1].replace("accessorie=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -346,8 +346,8 @@ function onRequest(request, response) {
         case "myMethod=deleteMachine":
           con.query(
             "DELETE FROM machines WHERE Machine='" +
-              processJSON(body)[1].replace("machine=", "") +
-              "'",
+            processJSON(body)[1].replace("machine=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -357,8 +357,8 @@ function onRequest(request, response) {
         case "myMethod=deleteClient":
           con.query(
             "DELETE FROM clients WHERE Client='" +
-              processJSON(body)[1].replace("client=", "") +
-              "'",
+            processJSON(body)[1].replace("client=", "") +
+            "'",
             function (err, result, fields) {
               if (err) throw err;
               response.end(JSON.stringify(result));
@@ -366,6 +366,7 @@ function onRequest(request, response) {
           );
           break;
       }
+      console.log("\n");
     });
   } else {
     response.writeHead(200, { "Content-Type": getMIME(request.url) });

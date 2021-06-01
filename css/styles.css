@@ -60,7 +60,9 @@ body {
 .machine,
 .tool,
 .summary,
-.admin-list-clients {
+.admin-list-clients,
+.admin-list-machines,
+.admin-list-tools {
   border: 1px solid var(--bigmachines-bordercolor);
   border-radius: 12px;
   background-color: var(--bigmachines-bgcolor);
@@ -91,7 +93,9 @@ h5::after,
 .tool-title::after,
 .summary div:not(.lastelement)::after,
 .summary-title::after,
-.admin-list-clients div:not(.lastelement)::after {
+.admin-list-clients div:not(.lastelement)::after,
+.admin-list-machines div:not(.lastelement)::after,
+.admin-list-tools div:not(.lastelement)::after {
   display: block;
   background-color: var(--bigmachines-bordercolor);
   content: "";
@@ -238,12 +242,15 @@ h4 {
   text-align: center;
 }
 
-.footer button, .admin-new-client {
+.footer button,
+.admin-new-client,
+.admin-new-machine,
+.admin-new-tool {
   text-transform: uppercase;
   border-radius: 5px;
   margin-top: 3vh;
   height: 50%;
-  width: 15%;
+  width: 20%;
   color: white;
   text-align: center;
   font-weight: bold;
@@ -259,13 +266,19 @@ h4 {
   border-color: var(--reset-hover-bordercolor);
 }
 
-.print, .admin-new-client {
+.print,
+.admin-new-client,
+.admin-new-machine,
+.admin-new-tool {
   border: none;
   background-color: var(--print-bgcolor);
   margin-left: 1vw;
 }
 
-.print:hover, .admin-new-client:hover {
+.print:hover,
+.admin-new-client:hover,
+.admin-new-machine:hover,
+.admin-new-tool:hover {
   background-color: var(--print-hover-bgcolor);
 }
 
@@ -335,7 +348,9 @@ button:hover,
   filter: invert(100%);
 }
 
-.table-title-clients:not(.last) {
+.table-title-clients:not(.last),
+.table-title-machines:not(.last),
+.table-title-tools:not(.last) {
   padding-right: 4vw;
 }
 
@@ -348,18 +363,44 @@ button:hover,
   margin-right: 25%;
 }
 
-.admin-list-clients {
+.admin-list-clients,
+.admin-list-machines,
+.admin-list-tools {
   padding-bottom: 16px;
   margin-bottom: 12vh;
+  min-width: 1348px;
 }
 
-.admin-new-client {
+.admin-new-client,
+.admin-new-machine,
+.admin-new-tool {
   position: absolute;
   height: 60px;
   right: 20px;
   margin-top: 12px;
 }
 
-.admin-list-clients {
-  min-width: 1348px;
+.admin-select {
+  position: absolute;
+  display: flex;
+  left: 1.5vw;
+}
+
+.admin-select button {
+  border: 1px solid var(--bigmachines-bordercolor);
+  border-radius: 5px 5px 0px 0px;
+  position: relative;
+  top: -27px;
+}
+
+.admin-select button:hover,
+.admin-select button.current {
+  background-color: var(--bigmachines-bordercolor);
+}
+
+/*Bugfix*/
+@media (prefers-color-scheme: light) {
+  .operation-icon {
+    filter: invert(0%) brightness(0.5) saturate(100%);
+  }
 }
