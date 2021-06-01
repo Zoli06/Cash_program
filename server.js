@@ -6,7 +6,7 @@ var mysql = require("mysql");
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Zoli94631782",
+  password: "it's not for you bro :)",
 });
 
 function getMIME(url) {
